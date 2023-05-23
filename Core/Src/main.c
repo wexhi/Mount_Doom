@@ -81,6 +81,8 @@ extern float Roll, Pitch, Yaw;
 
 float g_fMPU6050YawMovePidOut = 0, g_fMPU6050YawMovePidOut1 = 0, g_fMPU6050YawMovePidOut2 = 0,
 	  g_fMPU6050PitchMovePidOut = 0, g_fMPU6050PitchMovePidOut1 = 0, g_fMPU6050PitchMovePidOut2 = 0;
+
+float MAX_Roll = 0,	Target_Yaw = 0.0001;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -222,7 +224,7 @@ void stop(void)
 void MotorTurnAngle(float angle, float speed)
 {
 	pidMPU6050YawMovement.target_val = angle;
-	g_fMPU6050YawMovePidOut = PID_realize(&pidMPU6050YawMovement, Yaw);
+	g_fMPU6050YawMovePidOut = PID_Anglerealize(&pidMPU6050YawMovement, Yaw);
 	  
 	g_fMPU6050YawMovePidOut1 = speed - g_fMPU6050YawMovePidOut;
 	g_fMPU6050YawMovePidOut2 = speed + g_fMPU6050YawMovePidOut;
@@ -232,7 +234,7 @@ void MotorTurnAngle(float angle, float speed)
 void Climb (float angle, float speed)
 {
 	pidMPU6050PitchMovement.target_val = -angle;
-	g_fMPU6050PitchMovePidOut = PID_realize(&pidMPU6050PitchMovement, Pitch);
+	g_fMPU6050PitchMovePidOut = PID_Anglerealize(&pidMPU6050PitchMovement, Pitch);
 	  
 	g_fMPU6050PitchMovePidOut1 = speed - g_fMPU6050PitchMovePidOut;
 	g_fMPU6050PitchMovePidOut2 = speed + g_fMPU6050PitchMovePidOut;
@@ -258,9 +260,13 @@ void OLED_Show()
 	OLED_ShowString(0, 40, OledString);
 	sprintf((char*)OledString, "Y: %2.1f", Yaw);
 	OLED_ShowString(0, 50, OledString);
-	//sprintf((char*)OledString, "D: %2.1f", g_fMPU6050YawMovePidOut);
-	sprintf((char*)OledString, "D: %2.1f", g_fMPU6050PitchMovePidOut);
+	sprintf((char*)OledString, "D: %2.2f", g_fMPU6050YawMovePidOut);
+	//sprintf((char*)OledString, "D: %2.2f", g_fMPU6050PitchMovePidOut);
 	OLED_ShowString(64, 50, OledString);
+	sprintf((char*)OledString, "M: %2.2f", MAX_Roll);
+	OLED_ShowString(64, 40, OledString);
+	sprintf((char*)OledString, "T: %2.2f", Target_Yaw);
+	OLED_ShowString(64, 30, OledString);
 	OLED_Refresh_Gram();
 }
 
@@ -398,13 +404,19 @@ int main(void)
 	  OLED_Show();
 	  Read_DMP();
 
-	  Climb(Pitch, 2);
-	  //MotorTurnAngle(0.001, 2);
+	  if (-Roll > MAX_Roll)
+	  {
+		  MAX_Roll = -Roll;
+		  Target_Yaw = Yaw;
+	  }
+
+	  MotorTurnAngle(Target_Yaw, 2);
+	  
+	  //Climb(Pitch, 2);
+	  //MotorTurnAngle(-0.001, 2);
 
 	  delay_ms(50);
 
-	  
-	  
 	  //ANO_DT_Send_F2(wheel1.actual_pos / 1560 * 100, 3.0 * 100, wheel2.actual_pos / 1560 * 100, 3.0 * 100);
 	  //ANO_DT_Send_F2(Motor1Speed * 100, 3.0 * 100, Motor2Speed * 100, 3.0 * 100);
   }

@@ -27,6 +27,7 @@ typedef struct
 void PID_init(void);
 
 float PID_realize(tPid * pid, float actual_val);
+float PID_Anglerealize(tPid * pid, float actual_val);
 int Position_PID(Car * pid, float target_val, float actual_val);
 int Increnental_PID(tPid * pid, float target_val, float actual_val);
 
