@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mount_Doom", "Mount_Doom\Mount_Doom.vcxproj", "{82B8BC41-0B2D-4FD7-8D7C-C61982AE9711}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82B8BC41-0B2D-4FD7-8D7C-C61982AE9711}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{82B8BC41-0B2D-4FD7-8D7C-C61982AE9711}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{82B8BC41-0B2D-4FD7-8D7C-C61982AE9711}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{82B8BC41-0B2D-4FD7-8D7C-C61982AE9711}.Release|VisualGDB.Build.0 = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56C8BD44-7E42-4C4D-8339-8444DB51F5F2}
+	EndGlobalSection
+EndGlobal
