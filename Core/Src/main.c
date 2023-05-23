@@ -260,8 +260,8 @@ void OLED_Show()
 	OLED_ShowString(0, 40, OledString);
 	sprintf((char*)OledString, "Y: %2.1f", Yaw);
 	OLED_ShowString(0, 50, OledString);
-	sprintf((char*)OledString, "D: %2.2f", g_fMPU6050YawMovePidOut);
-	//sprintf((char*)OledString, "D: %2.2f", g_fMPU6050PitchMovePidOut);
+	//sprintf((char*)OledString, "D: %2.2f", g_fMPU6050YawMovePidOut);
+	sprintf((char*)OledString, "D: %2.2f", g_fMPU6050PitchMovePidOut);
 	OLED_ShowString(64, 50, OledString);
 	sprintf((char*)OledString, "M: %2.2f", MAX_Roll);
 	OLED_ShowString(64, 40, OledString);
@@ -386,7 +386,7 @@ int main(void)
 	OLED_Init();
 	
 	//OLED_ShowString(30, 30, oled_str);
-	HAL_Delay(500);
+	//HAL_Delay(500);
 	MPU6050_initialize();
 	DMP_Init();
 
@@ -403,16 +403,14 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  OLED_Show();
 	  Read_DMP();
-
-	  if (-Roll > MAX_Roll)
-	  {
-		  MAX_Roll = -Roll;
-		  Target_Yaw = Yaw;
-	  }
-
-	  MotorTurnAngle(Target_Yaw, 2);
+//	  if (-Roll > MAX_Roll)
+//	  {
+//		  MAX_Roll = -Roll;
+//		  Target_Yaw = Yaw;
+//	  }
+	  //MotorTurnAngle(Target_Yaw, 2);
 	  
-	  //Climb(Pitch, 2);
+	  Climb(Pitch, 2);
 	  //MotorTurnAngle(-0.001, 2);
 
 	  delay_ms(50);
