@@ -44,7 +44,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\..\STM32CubeIDE\.cproject</RelativePath>
-        <Timestamp>133292299660012070</Timestamp>
+        <Timestamp>133293205832487144</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -288,7 +288,7 @@
             <string>STM32F103xE</string>
           </PreprocessorMacros>
           <GeneratePreprocessorOutput>false</GeneratePreprocessorOutput>
-          <LinkerScript>C:\Users\wexhi\Desktop\study\cubeMX\Mount_Doom\STM32CubeIDE\STM32F103RCTX_FLASH.ld</LinkerScript>
+          <LinkerScript>C:\Users\14775\Desktop\study\QEA\Mount_Doom\STM32CubeIDE\STM32F103RCTX_FLASH.ld</LinkerScript>
           <IsDebugConfiguration>false</IsDebugConfiguration>
         </Settings>
       </ImportedConfiguration>

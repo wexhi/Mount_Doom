@@ -3,12 +3,20 @@
   <Memories>
     <MemoryUtilization>
       <MemoryName>FLASH</MemoryName>
+<<<<<<< HEAD
       <Used>73792</Used>
+=======
+      <Used>73776</Used>
+>>>>>>> e332195ab23e7de813ebb374886298b6fcbde841
       <Total>262144</Total>
     </MemoryUtilization>
     <MemoryUtilization>
       <MemoryName>SRAM</MemoryName>
+<<<<<<< HEAD
       <Used>6648</Used>
+=======
+      <Used>6616</Used>
+>>>>>>> e332195ab23e7de813ebb374886298b6fcbde841
       <Total>49152</Total>
     </MemoryUtilization>
   </Memories>
