@@ -81,6 +81,8 @@ extern float Roll, Pitch, Yaw;
 
 float g_fMPU6050YawMovePidOut = 0, g_fMPU6050YawMovePidOut1 = 0, g_fMPU6050YawMovePidOut2 = 0,
 	  g_fMPU6050PitchMovePidOut = 0, g_fMPU6050PitchMovePidOut1 = 0, g_fMPU6050PitchMovePidOut2 = 0;
+
+float MAX_Roll = 0,	Target_Yaw = 0.0001;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -258,9 +260,13 @@ void OLED_Show()
 	OLED_ShowString(0, 40, OledString);
 	sprintf((char*)OledString, "Y: %2.1f", Yaw);
 	OLED_ShowString(0, 50, OledString);
-	sprintf((char*)OledString, "D: %2.2f", g_fMPU6050YawMovePidOut);
-	//sprintf((char*)OledString, "D: %2.2f", g_fMPU6050PitchMovePidOut);
+	//sprintf((char*)OledString, "D: %2.2f", g_fMPU6050YawMovePidOut);
+	sprintf((char*)OledString, "D: %2.2f", g_fMPU6050PitchMovePidOut);
 	OLED_ShowString(64, 50, OledString);
+//	sprintf((char*)OledString, "M: %2.2f", MAX_Roll);
+//	OLED_ShowString(64, 40, OledString);
+//	sprintf((char*)OledString, "T: %2.2f", Target_Yaw);
+//	OLED_ShowString(64, 30, OledString);
 	OLED_Refresh_Gram();
 }
 
@@ -380,7 +386,7 @@ int main(void)
 	OLED_Init();
 	
 	//OLED_ShowString(30, 30, oled_str);
-	HAL_Delay(500);
+	//HAL_Delay(500);
 	MPU6050_initialize();
 	DMP_Init();
 
@@ -397,9 +403,15 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  OLED_Show();
 	  Read_DMP();
-
-	  //Climb(Pitch, 2);
-	  MotorTurnAngle(-0.001, 2);
+//	  if (-Roll > MAX_Roll)
+//	  {
+//		  MAX_Roll = -Roll;
+//		  Target_Yaw = Yaw;
+//	  }
+	  //MotorTurnAngle(Target_Yaw, 2);
+	  
+	  Climb(Pitch, 5);
+	  //MotorTurnAngle(-0.001, 2);
 
 	  delay_ms(50);
 
