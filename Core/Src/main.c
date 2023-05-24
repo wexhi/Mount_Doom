@@ -72,7 +72,6 @@ extern uint8_t usart1_ReadBufCount;
 
 float p, i, d, a;
 
-uint8_t oled_str[] = { "I LOVE CY" };\
 uint8_t OledString[30];
 
 float Mileage = 0.00;
