@@ -42,9 +42,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define MAX_SPEED 4.5
-#define MIN_SPEED 0
-#define PI 3.141592653589793
 #define LED1_ON() HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET)
 #define LED1_OFF() HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET)
 #define LED1_TOGGLE() HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin)
@@ -55,34 +52,26 @@
 
 short Encoder1Count = 0;
 short Encoder2Count = 0;
-uint8_t str[256];
 
 float Motor1Speed = 0.00;
 float Motor2Speed = 0.00;
-int Motor1Pwm = 0;
-int Motor2Pwm = 0;
 
 uint16_t Timer1Count = 0;
 
 extern tPid pidMotor1Speed, pidMotor2Speed, pidMPU6050YawMovement, pidMPU6050PitchMovement;
 extern Car wheel1, wheel2;
 
-extern uint8_t usart1_ReadBuf[256];
-extern uint8_t usart1_ReadBufCount;
 
-float p, i, d, a;
-
-uint8_t oled_str[] = { "I LOVE CY" };\
 uint8_t OledString[30];
 
 float Mileage = 0.00;
 
 extern float Roll, Pitch, Yaw; 
 
+
 float g_fMPU6050YawMovePidOut = 0, g_fMPU6050YawMovePidOut1 = 0, g_fMPU6050YawMovePidOut2 = 0,
 	  g_fMPU6050PitchMovePidOut = 0, g_fMPU6050PitchMovePidOut1 = 0, g_fMPU6050PitchMovePidOut2 = 0;
 
-float MAX_Roll = 0,	Target_Yaw = 0.0001;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -99,22 +88,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-void Show_Info()
-{
-		sprintf((char*)str,
-		"Motor1Speed : %2f Motor2Speed : %2f\r\n Motor1Pwm : %d Motor2Pwm : %d\r\n", 
-		 Motor1Speed,	   Motor2Speed,		 Motor1Pwm,		Motor1Pwm);
-	HAL_UART_Transmit(&huart1, str, sizeof(str), 100);
-}
-
-void Show_Info_Car(Car *pid)
-{
-	sprintf((char*)str,
-		"target_pos : %2f actual_pos : %2f\r\n err : \r\n", 
-		 pid->target_pos,	   pid->actual_pos);
-	HAL_UART_Transmit(&huart1, str, sizeof(str), 100);
-}
 
 
 int XianFu_PWM(int pwm)
@@ -181,10 +154,10 @@ void Motor_Control(int pwm1, int pwm2)
 	
 }
 
-//MotorPidSetSpeed(3, 4);//turn left
-//MotorPidSetSpeed(4, 3);//turn right
-//MotorPidSetSpeed(4, 4);//forward
-//MotorPidSetSpeed(-3, -3);//backward
+////MotorPidSetSpeed(3, 4);//turn left
+////MotorPidSetSpeed(4, 3);//turn right
+////MotorPidSetSpeed(4, 4);//forward
+////MotorPidSetSpeed(-3, -3);//backward
 void MotorPidSetSpeed(float Motor1SetSpeed, float Motor2SetSpeed)
 {
 	//Set pid target speed
@@ -194,25 +167,6 @@ void MotorPidSetSpeed(float Motor1SetSpeed, float Motor2SetSpeed)
 	Motor_Control(PID_realize(&pidMotor1Speed, Motor1Speed), PID_realize(&pidMotor2Speed, Motor2Speed));
 }
 
-void MotorPidSpeedUp(void)
-{
-	static float motor_Speed_Up = 2;
-	if (motor_Speed_Up < MAX_SPEED)
-	{
-		motor_Speed_Up += 0.5;
-		MotorPidSetSpeed(motor_Speed_Up, motor_Speed_Up);
-	}
-}
-
-void MotorPidSpeedDown(void)
-{
-	static float motor_Speed_Down = 4;
-	if (motor_Speed_Down > MIN_SPEED)
-	{
-		motor_Speed_Down -= 0.5;
-		MotorPidSetSpeed(motor_Speed_Down, motor_Speed_Down);
-	}
-}
 
 void stop(void)
 {
@@ -235,15 +189,10 @@ void Climb (float angle, float speed)
 {
 	pidMPU6050PitchMovement.target_val = -angle;
 	g_fMPU6050PitchMovePidOut = PID_Anglerealize(&pidMPU6050PitchMovement, Pitch);
-	  
 	g_fMPU6050PitchMovePidOut1 = speed - g_fMPU6050PitchMovePidOut;
 	g_fMPU6050PitchMovePidOut2 = speed + g_fMPU6050PitchMovePidOut;
 	MotorPidSetSpeed(g_fMPU6050PitchMovePidOut1, g_fMPU6050PitchMovePidOut2);
 }
-//void MoveTo(int des, int act)
-//{
-//	if (des * 1560 )
-//}
 
 void OLED_Show()
 {
@@ -263,10 +212,10 @@ void OLED_Show()
 	//sprintf((char*)OledString, "D: %2.2f", g_fMPU6050YawMovePidOut);
 	sprintf((char*)OledString, "D: %2.2f", g_fMPU6050PitchMovePidOut);
 	OLED_ShowString(64, 50, OledString);
-	sprintf((char*)OledString, "M: %2.2f", MAX_Roll);
-	OLED_ShowString(64, 40, OledString);
-	sprintf((char*)OledString, "T: %2.2f", Target_Yaw);
-	OLED_ShowString(64, 30, OledString);
+//	sprintf((char*)OledString, "M: %2.2f", MAX_Roll);
+//	OLED_ShowString(64, 40, OledString);
+//	sprintf((char*)OledString, "T: %2.2f", Target_Yaw);
+//	OLED_ShowString(64, 30, OledString);
 	OLED_Refresh_Gram();
 }
 
@@ -299,31 +248,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}	
 	}
 }
-
-	
-
-uint8_t Usart_WaitReasFinish(void)
-{
-	static uint8_t Usart_LastReadCount = 0;
-	
-	if (usart1_ReadBufCount == 0)
-	{
-		Usart_LastReadCount = 0;
-		return 1;
-	}
-	else if (Usart_LastReadCount == usart1_ReadBufCount)
-	{
-		Usart_LastReadCount = 0;
-		usart1_ReadBufCount = 0;
-		return 0;
-	}
-	else
-	{
-		Usart_LastReadCount = usart1_ReadBufCount;
-		return 2;
-	}
-}
-
 
 
 /* USER CODE END 0 */
@@ -381,12 +305,9 @@ int main(void)
 	
 	PID_init();
 	
-	cJSON *cJsonData, *cJsonValue;
-	
+
 	OLED_Init();
 	
-	//OLED_ShowString(30, 30, oled_str);
-	//HAL_Delay(500);
 	MPU6050_initialize();
 	DMP_Init();
 
@@ -403,20 +324,13 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  OLED_Show();
 	  Read_DMP();
-//	  if (-Roll > MAX_Roll)
-//	  {
-//		  MAX_Roll = -Roll;
-//		  Target_Yaw = Yaw;
-//	  }
+
 	  //MotorTurnAngle(Target_Yaw, 2);
 	  
 	  Climb(Pitch, 2);
-	  //MotorTurnAngle(-0.001, 2);
 
 	  delay_ms(50);
 
-	  //ANO_DT_Send_F2(wheel1.actual_pos / 1560 * 100, 3.0 * 100, wheel2.actual_pos / 1560 * 100, 3.0 * 100);
-	  //ANO_DT_Send_F2(Motor1Speed * 100, 3.0 * 100, Motor2Speed * 100, 3.0 * 100);
   }
   /* USER CODE END 3 */
 }

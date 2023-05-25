@@ -1,0 +1,10 @@
+mount_doom\cjson.o: ..\Mount_Doom\Mount_Doom\cJSON.c
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
+mount_doom\cjson.o: ..\Mount_Doom\Mount_Doom\cJSON.h
+mount_doom\cjson.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

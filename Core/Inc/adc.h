@@ -41,7 +41,7 @@ extern ADC_HandleTypeDef hadc2;
 void MX_ADC2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-float adcGetBatteryVoltage();
+float adcGetBatteryVoltage(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -118,17 +118,17 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 }
 
 /* USER CODE BEGIN 1 */
-//void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)    //ADC杞崲�?�屾垚鍥炶皟
+//void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)    //ADC鏉烆剚宕�??瑰本鍨氶崶鐐剁殶
 //{
 //	uint16_t voltage;
 //	if (hadc == &hadc2)
 //	{
-//		voltage = HAL_ADC_GetValue(&hadc2); //鑾峰彇ADC杞崲鐨�???
-//		Get_Voltage = 3.3 / Max_Voltage_ADC*voltage*Ratio * 100; //璇诲彇鐢靛帇锛屾斁澶?100鍊嶅偍�???
+//		voltage = HAL_ADC_GetValue(&hadc2); //閼惧嘲褰嘇DC鏉烆剚宕查惃�????
+//		Get_Voltage = 3.3 / Max_Voltage_ADC*voltage*Ratio * 100; //鐠囪褰囬悽闈涘竾閿涘本鏂佹�??100閸婂秴鍋�????
 //	}
 //}
 
-float adcGetBatteryVoltage()
+float adcGetBatteryVoltage(void)
 {
 	HAL_ADC_Start(&hadc2);
 	if (HAL_OK == HAL_ADC_PollForConversion(&hadc2, 50))

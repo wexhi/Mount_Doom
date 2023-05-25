@@ -58,7 +58,7 @@ void PID_init(void)
 	pidMPU6050PitchMovement.err = 0;
 	pidMPU6050PitchMovement.err_last = 0;
 	pidMPU6050PitchMovement.err_sum = 0;
-	pidMPU6050PitchMovement.Kp = 0.02;
+	pidMPU6050PitchMovement.Kp = 0.08;
 	pidMPU6050PitchMovement.Ki = 0;
 	pidMPU6050PitchMovement.Kd = 0.1;
 }
@@ -104,7 +104,7 @@ float PID_Anglerealize(tPid * pid, float actual_val)
 	pid->err_prev = pid->err_last;
 	pid->err_last = pid->err;
 	
-	if (fabs(pid->actual_val) <= 0.08)
+	if (fabs(pid->actual_val) <= 0.05)
 	{
 		return 0;
 	}

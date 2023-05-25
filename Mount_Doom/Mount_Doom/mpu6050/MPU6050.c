@@ -304,32 +304,30 @@ void DMP_Init(void)
    uint8_t temp[1]={0};
 	 
    i2cRead(0x68,0x75,1,temp);
-	 printf("mpu_set_sensor complete ......\r\n");
+//	 printf("mpu_set_sensor complete ......\r\n");
 	if(temp[0]!=0x68)NVIC_SystemReset();
 	if(!mpu_init())
   {
-	  if(!mpu_set_sensors(INV_XYZ_GYRO | INV_XYZ_ACCEL))
-	  	 printf("mpu_set_sensor complete ......\r\n");
-	  if(!mpu_configure_fifo(INV_XYZ_GYRO | INV_XYZ_ACCEL))
-	  	 printf("mpu_configure_fifo complete ......\r\n");
-	  if(!mpu_set_sample_rate(DEFAULT_MPU_HZ))
-	  	 printf("mpu_set_sample_rate complete ......\r\n");
-	  if(!dmp_load_motion_driver_firmware())
-	  	printf("dmp_load_motion_driver_firmware complete ......\r\n");
-	  if(!dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation)))
-	  	 printf("dmp_set_orientation complete ......\r\n");
+	  if(!mpu_set_sensors(INV_XYZ_GYRO | INV_XYZ_ACCEL)){}
+//	  	 printf("mpu_set_sensor complete ......\r\n");
+	  if(!mpu_configure_fifo(INV_XYZ_GYRO | INV_XYZ_ACCEL)){}
+//	  	 printf("mpu_configure_fifo complete ......\r\n");
+	  if(!mpu_set_sample_rate(DEFAULT_MPU_HZ)){}
+//	  	 printf("mpu_set_sample_rate complete ......\r\n");
+	  if(!dmp_load_motion_driver_firmware()){}
+//	  	printf("dmp_load_motion_driver_firmware complete ......\r\n");
+	  if(!dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation))){}
+//	  	 printf("dmp_set_orientation complete ......\r\n");
 	  if(!dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT | DMP_FEATURE_TAP |
 	      DMP_FEATURE_ANDROID_ORIENT | DMP_FEATURE_SEND_RAW_ACCEL | DMP_FEATURE_SEND_CAL_GYRO |
-	      DMP_FEATURE_GYRO_CAL))
-	  	 printf("dmp_enable_feature complete ......\r\n");
-	  if(!dmp_set_fifo_rate(DEFAULT_MPU_HZ))
-	  	 printf("dmp_set_fifo_rate complete ......\r\n");
+	      DMP_FEATURE_GYRO_CAL)){}
+//	  	 printf("dmp_enable_feature complete ......\r\n");
+	  if(!dmp_set_fifo_rate(DEFAULT_MPU_HZ)){}
+//	  	 printf("dmp_set_fifo_rate complete ......\r\n");
 	  run_self_test();
-		if(!mpu_set_dmp_state(1))
-			 printf("mpu_set_dmp_state complete ......\r\n");
+		if(!mpu_set_dmp_state(1)){}
+//			 printf("mpu_set_dmp_state complete ......\r\n");
   }
-	
-
 }
 /**************************************************************************
 Function: Read the attitude information of DMP in mpu6050
@@ -344,7 +342,6 @@ void Read_DMP(void)
 	  unsigned long sensor_timestamp;
 		unsigned char more;
 		long quat[4];
-	uint8_t str[20];
 
 	while(dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors, &more))
 	{      
@@ -355,11 +352,6 @@ void Read_DMP(void)
 					 q1=quat[1] / q30;
 					 q2=quat[2] / q30;
 					 q3=quat[3] / q30; 		//四元数
-
-					 Pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3 + 4.2; 	//计算出俯仰角
-					 Roll = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // 计算出横滚角
-					 Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3 + 5.5;	 //计算出偏航角
-
 					 Pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3 - 0.1; 	//计算出俯仰角
 					 Roll = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3 - 7.8; // 计算出横滚角
 					 Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3 + 8.3;	 //计算出偏航角
