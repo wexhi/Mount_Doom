@@ -72,7 +72,6 @@ extern uint8_t usart1_ReadBufCount;
 
 float p, i, d, a;
 
-uint8_t oled_str[] = { "I LOVE CY" };\
 uint8_t OledString[30];
 
 float Mileage = 0.00;
@@ -235,7 +234,6 @@ void Climb (float angle, float speed)
 {
 	pidMPU6050PitchMovement.target_val = -angle;
 	g_fMPU6050PitchMovePidOut = PID_Anglerealize(&pidMPU6050PitchMovement, Pitch);
-	  
 	g_fMPU6050PitchMovePidOut1 = speed - g_fMPU6050PitchMovePidOut;
 	g_fMPU6050PitchMovePidOut2 = speed + g_fMPU6050PitchMovePidOut;
 	MotorPidSetSpeed(g_fMPU6050PitchMovePidOut1, g_fMPU6050PitchMovePidOut2);
@@ -263,10 +261,10 @@ void OLED_Show()
 	//sprintf((char*)OledString, "D: %2.2f", g_fMPU6050YawMovePidOut);
 	sprintf((char*)OledString, "D: %2.2f", g_fMPU6050PitchMovePidOut);
 	OLED_ShowString(64, 50, OledString);
-	sprintf((char*)OledString, "M: %2.2f", MAX_Roll);
-	OLED_ShowString(64, 40, OledString);
-	sprintf((char*)OledString, "T: %2.2f", Target_Yaw);
-	OLED_ShowString(64, 30, OledString);
+//	sprintf((char*)OledString, "M: %2.2f", MAX_Roll);
+//	OLED_ShowString(64, 40, OledString);
+//	sprintf((char*)OledString, "T: %2.2f", Target_Yaw);
+//	OLED_ShowString(64, 30, OledString);
 	OLED_Refresh_Gram();
 }
 
