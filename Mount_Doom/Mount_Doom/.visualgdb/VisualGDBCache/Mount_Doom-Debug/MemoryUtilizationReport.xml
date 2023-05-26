@@ -3,7 +3,15 @@
   <Memories>
     <MemoryUtilization>
       <MemoryName>FLASH</MemoryName>
+<<<<<<< HEAD
       <Used>73568</Used>
+=======
+<<<<<<< HEAD
+      <Used>74324</Used>
+=======
+      <Used>74128</Used>
+>>>>>>> c737705c8e6c3156d97dbf658a8cc6a519e11402
+>>>>>>> f109aac54625495063fc26090fc025a4df72d91b
       <Total>262144</Total>
     </MemoryUtilization>
     <MemoryUtilization>

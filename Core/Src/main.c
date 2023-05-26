@@ -327,7 +327,7 @@ int main(void)
 
 	  //MotorTurnAngle(Target_Yaw, 2);
 	  
-	  Climb(Pitch, 2);
+	  Climb(Pitch, 2.5);
 
 	  delay_ms(50);
 
