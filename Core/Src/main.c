@@ -327,8 +327,15 @@ int main(void)
 
 	  //MotorTurnAngle(Target_Yaw, 2);
 	  
-	  Climb(Pitch, 2);
-
+	  Climb(Pitch, 2.5);
+	  
+	  //定点停车，默认注释
+//	  if (Mileage >= 2)//行驶超过2m停下
+//	  {
+//		  stop();
+//		  break;
+//	  }
+	  
 	  delay_ms(50);
 
   }
