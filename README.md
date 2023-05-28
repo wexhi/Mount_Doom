@@ -6,3 +6,6 @@ QEA 末日火山项目。
 请观看以下B站链接https://www.bilibili.com/video/BV1NV411U7Bq/?spm_id_from=333.880.my_history.page.click&vd_source=cd7bff178b79967cd653b46af7fbb681
 
 若尝试添加keil工程，但是过程较麻烦，且烧录时出现未知错误，因此不推荐在本项目代码中使用keil
+
+# 2023.5.26
+新增keil版本，现在可下载代码后，直接点击Mount_Doom\MDK-ARM\Mount_Doom.uvproj文件，编译烧录。
